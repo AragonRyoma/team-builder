@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 
-function Form() {
-  const [user, setUser] = useState({ key: Date.now(), name: "", email: "" });
+function Form(props) {
+  const [user, setUser] = useState({
+    key: Date.now(),
+    name: "",
+    email: "",
+    role: "",
+  });
 
   const changeHandler = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -9,9 +14,10 @@ function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUser({ name: "", email: "" });
-    console.log(user.name);
-    console.log(user.email);
+    if (user.name !== "" && user.email !== "" && user.role !== "") {
+      setUser({ name: "", email: "", key: Date.now(), role: "" });
+      props.addNewData(user);
+    }
   };
 
   return (
@@ -36,6 +42,16 @@ function Form() {
             onChange={changeHandler}
             name="email"
             value={user.email}
+          />
+        </label>
+        <label>
+          Role:
+          <input
+            id="role"
+            type="text"
+            onChange={changeHandler}
+            name="role"
+            value={user.role}
           />
         </label>
         <button>Submit</button>

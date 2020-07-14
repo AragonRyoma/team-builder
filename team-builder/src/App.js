@@ -9,6 +9,7 @@ function App() {
       id: Date.now(),
       name: "Lenny",
       email: "Lenny@email.com",
+      role: "Student",
     },
   ]);
 
@@ -17,6 +18,7 @@ function App() {
       id: Date.now(),
       name: data.name,
       email: data.email,
+      role: data.role,
     };
 
     setTeam([...team, newData]);
@@ -25,7 +27,9 @@ function App() {
   return (
     <>
       <Form addNewData={addNewData} />
-      <UserInfo user={team} />
+      {team.map((person) => (
+        <UserInfo person={person} />
+      ))}
     </>
   );
 }
